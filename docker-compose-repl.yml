@@ -1,0 +1,4 @@
+services:
+  rye-app-repl:
+    image: ghcr.io/refaktor/rye:latest
+    tty: true

@@ -1,0 +1,14 @@
+FROM golang:1.23-alpine AS builder
+
+RUN apk add --no-cache git sqlite-dev bash gcc libc-dev
+
+WORKDIR /go/src/rye
+
+RUN git clone https://github.com/refaktor/rye.git rye-repo
+
+COPY ./rye-repo .
+
+RUN mkdir -p /out && \
+    go build -x -tags "b_tiny" -o /out/rye .
+
+ENTRYPOINT ["/out/rye", "serve_wasm.rye"]
